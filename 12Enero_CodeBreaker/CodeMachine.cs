@@ -10,7 +10,7 @@ namespace _12Enero_CodeBreaker
     {
         private string password;
 
-        public CodeMachine(string password)
+        private CodeMachine(string password)
         {
             this.password = password;
         }
@@ -36,6 +36,21 @@ namespace _12Enero_CodeBreaker
             exactPositions.AddRange(unexactPositions);
 
             return String.Concat(exactPositions);
+        }
+
+        public static CodeMachine Generate(string password)
+        {
+            char[] accepted = { 'R', 'A', 'M', 'V', 'N', 'I' };
+            if (password.Length != 4)
+                throw new WrongSizedPasswordException();
+
+            char[] myPassword = password.ToCharArray();
+
+            foreach (var item in myPassword)
+                if (!accepted.Contains(item))
+                    throw new IncorrectCharactersException();                
+            
+            return new CodeMachine(password);
         }
     }
 }

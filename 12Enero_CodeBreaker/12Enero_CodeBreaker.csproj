@@ -42,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeMachine.cs" />
+    <Compile Include="IncorrectCharactersException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WrongSizedPasswordException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
