@@ -8,11 +8,9 @@ namespace _12Enero_CodeBreaker
 {
     public class CodeMachine
     {
-        private string password;
-
-        private CodeMachine(string password)
+        public CodeMachine(string password)
         {
-            this.password = password;
+            this.mPassword = password;
         }
 
         public string Decode(string p)
@@ -21,15 +19,17 @@ namespace _12Enero_CodeBreaker
             List<char> unexactPositions = new List<char>();
 
             char[] array = p.ToCharArray();
-            char[] passwordToDecode = password.ToCharArray();
+            char[] passwordToDecode = mPassword.ToCharArray();
+
             for (int i = 0; i < array.Length; i++)
             {
-                if (array[i] == passwordToDecode[i])
+                if (IsExactMatch(array, passwordToDecode, i))
                 {
                     exactPositions.Add('X');
                     continue;
                 }
-                if (passwordToDecode.Contains(array[i]))
+
+                if (IsUnexactMatch(array, passwordToDecode, i))
                     unexactPositions.Add('*');
             }
 
@@ -38,19 +38,18 @@ namespace _12Enero_CodeBreaker
             return String.Concat(exactPositions);
         }
 
-        public static CodeMachine Generate(string password)
+        private bool IsUnexactMatch(char[] array, 
+            char[] passwordToDecode, int i)
         {
-            char[] accepted = { 'R', 'A', 'M', 'V', 'N', 'I' };
-            if (password.Length != 4)
-                throw new WrongSizedPasswordException();
-
-            char[] myPassword = password.ToCharArray();
-
-            foreach (var item in myPassword)
-                if (!accepted.Contains(item))
-                    throw new IncorrectCharactersException();                
-            
-            return new CodeMachine(password);
+            return passwordToDecode.Contains(array[i]);
         }
+
+        private bool IsExactMatch(char[] array, 
+            char[] passwordToDecode, int i)
+        {
+            return array[i] == passwordToDecode[i];
+        }
+
+        private string mPassword;
     }
 }

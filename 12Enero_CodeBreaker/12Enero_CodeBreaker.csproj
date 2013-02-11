@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeMachine.cs" />
+    <Compile Include="CodeMachineBuilder.cs" />
     <Compile Include="IncorrectCharactersException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
